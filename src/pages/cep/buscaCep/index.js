@@ -1,45 +1,48 @@
-import React, {Component} from 'react';
-import {link} from 'react-router-dom';
-import './index.css';
+import React, { Component } from "react";
+import { link } from "react-router-dom";
+import "./index.css";
 
 //https://www.youtube.com/watch?v=gqk9T7onNCQ&list=PL2hDwB8DzXGOxIuijrYNrPrKcjQERQtbO&index=1
 
 //https://viacep.com.br/
 
-export default class BuscaCep extends Component{
-constructor(props){
+export default class BuscaCep extends Component {
+  constructor(props) {
     super(props);
-    this.state={
-        cep:[]
-    }
-}
+    this.state = {
+      cep: [],
+    };
+  }
 
-componentDidMount(){
-    fetch('https://viacep.com.br/ws/01001000/json/')
-    .then(cep=>cep.json().then(cep=>this.setState({cep})))
-}
+  componentDidMount() {
+    fetch(
+      "https://viacep.com.br/ws/RS/Porto%20Alegre/Domingos/json/"
+      // o retorno desse json conta uma estrutura de array
+      /*[
+          {
+              a:aaaa,
+              b:bbb
+          }, // indica um novo item no array dentro do json
+          {
+              a:aaa
+              b:bbb
+          }
 
-render(){
-    const {cep} = this.state;
-    console.log(cep);
-    console.log(cep.logradouro);
-    console.log(cep.complemento);
-    console.log(cep.localidade);
-    
+    ]*/
+    ).then((cep) => cep.json().then((cep) => this.setState({ cep })));
+  }
 
-    return this.state.cep.map((cep, index) => {
-
-        <div>
-            <div key={index} >
-                <h5> CEp:{cep.localidade}</h5>                
-            </div>
+  render() {
+    return this.state.cep.map((
+      //falei besteira, voce pode usar dessa forma tambem
+      cep,
+      index // nao pode usar na funcao map { 'e preciso usar (
+    ) => (
+      <div>
+        <div key={index}>
+          <h5> CEP:{cep.localidade}</h5>
         </div>
-    })
-
-    
-};
-    
+      </div>
+    ));
+  }
 }
-
-
-
